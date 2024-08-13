@@ -10,7 +10,7 @@ jobs:
       - name: "checkout"
         uses: actions/checkout@v3
       - name: "build"
-        uses: Paradis4432/ReleaserGithubAction/actions/java-automatic-release
+        uses: Paradis4432/ReleaserGithubAction/.github/actions/java-automatic-release@main
         with:
           java-version: 11
         env:
