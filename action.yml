@@ -58,7 +58,7 @@ runs:
       shell: bash
     - name: "send discord message"
       env:
-        DISCORD_WEBHOOK: $DISCORD_WEBHOOK
+        DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
         args: 'New release for: {{ EVENT_PAYLOAD.repository.full_name }}. ${{ github.server_url }}/${{ github.repository }}/releases/latest'
