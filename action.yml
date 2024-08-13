@@ -50,8 +50,8 @@ runs:
     - name: Gather Project Info
       id: gatherinfo
       env:
-        MAVEN_VARS: ${{ steps.maven.outputs.VARIABLES }}
         GRADLE_VARS: ${{ steps.gradle.outputs.VARIABLES }}
+        GH_TOKEN: ${{ inputs.git_token }}
       run: |-
         VARS=$MAVEN_VARS
         test "$VARS" == "" && VARS=$GRADLE_VARS
