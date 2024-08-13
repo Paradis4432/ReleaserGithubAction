@@ -62,7 +62,7 @@ runs:
         export OUTPUT_DIR="${VARS[3]}"
         export VERSION_REGEX="${VARS[4]}"
         export MODULES_REGEX="${VARS[5]}"
-        bash ./gather_buildtool_facts.sh
+        bash $GITHUB_ACTION_PATH/gather_buildtool_facts.sh
       shell: bash
     - name: Release Project
       env:
@@ -72,7 +72,7 @@ runs:
         export VERSION=$VERSION
         export FILES=$FILES
         export BUILD_TOOL="GRADLE"
-        bash ./release.sh
+        bash $GITHUB_ACTION_PATH/release.sh
       shell: bash
     - name: "send discord message"
       env:
