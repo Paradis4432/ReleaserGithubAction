@@ -10,7 +10,7 @@ jobs:
       - name: "checkout"
         uses: actions/checkout@v3
       - name: "build"
-        uses: ./.github/actions/java-automatic-release
+        uses: ./.github/java-automatic-release
         with:
           java-version: 11
         env:
