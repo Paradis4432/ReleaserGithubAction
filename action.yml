@@ -51,7 +51,6 @@ runs:
       id: gatherinfo
       env:
         GRADLE_VARS: ${{ steps.gradle.outputs.VARIABLES }}
-        GH_TOKEN: ${{ inputs.git_token }}
       run: |-
         VARS=$MAVEN_VARS
         test "$VARS" == "" && VARS=$GRADLE_VARS
@@ -68,6 +67,7 @@ runs:
       env:
         VERSION: ${{ steps.gatherinfo.outputs.VERSION }}
         FILES: ${{ steps.gatherinfo.outputs.FILES }}
+        GH_TOKEN: ${{ inputs.git_token }}
       run: |-
         export VERSION=$VERSION
         export FILES=$FILES
