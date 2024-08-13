@@ -1,11 +1,10 @@
 name: make new release
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+
+
 jobs:
-  build:
-    name: release
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: "checkout"
