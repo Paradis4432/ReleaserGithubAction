@@ -6,26 +6,11 @@ inputs:
     description: "The Java version to use when setting up Java."
     required: false
     default: 11
-  discord_webhook:
-    description: "discord webhook of the channel to send the update message"
-    required: true
-  git_token:
-    description: "git token, use secrets.GITHUB_TOKEN"
-    required: true
 
 # Jobs that will execute
 runs:
   using: "composite"
   steps:
-    - name: setup env vars
-      shell: bash
-      env:
-        GITHUB_TOKEN: ${{ inputs.git_token }}
-        REPOSITORY_NAME: ${{ github.event.repository.name }}
-        COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-      run: |
-        echo "Repository: $REPOSITORY_NAME"
-        echo "Commit Message: $COMMIT_MESSAGE"
     # Checkout repo to bring the script to the repository directory
     - name: Checkout repo
       uses: actions/checkout@v4
@@ -52,9 +37,7 @@ runs:
       env:
         GRADLE_VARS: ${{ steps.gradle.outputs.VARIABLES }}
       run: |-
-        VARS=$MAVEN_VARS
-        test "$VARS" == "" && VARS=$GRADLE_VARS
-        VARS=($VARS)
+        VARS=($GRADLE_VARS)
         export BUILD_FILE="${VARS[0]}"
         export MODULES_FILE="${VARS[1]}"
         export MODULES_ID="${VARS[2]}"
@@ -67,7 +50,6 @@ runs:
       env:
         VERSION: ${{ steps.gatherinfo.outputs.VERSION }}
         FILES: ${{ steps.gatherinfo.outputs.FILES }}
-        GH_TOKEN: ${{ inputs.git_token }}
       run: |-
         export VERSION=$VERSION
         export FILES=$FILES
@@ -76,7 +58,7 @@ runs:
       shell: bash
     - name: "send discord message"
       env:
-        DISCORD_WEBHOOK: ${{ inputs.discord_webhook }}
+        DISCORD_WEBHOOK: $DISCORD_WEBHOOK
       uses: Ilshidur/action-discord@master
       with:
         args: 'New release for: {{ EVENT_PAYLOAD.repository.full_name }}. ${{ github.server_url }}/${{ github.repository }}/releases/latest'
