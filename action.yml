@@ -9,6 +9,9 @@ inputs:
   discord_webhook:
     description: "discord webhook of the channel to send the update message"
     required: true
+  git_token:
+    description: "git token, use secrets.GITHUB_TOKEN"
+    required: true
 
 # Jobs that will execute
 runs:
@@ -17,7 +20,7 @@ runs:
     - name: setup env vars
       shell: bash
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ inputs.git_token }}
         REPOSITORY_NAME: ${{ github.event.repository.name }}
         COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
       run: |
