@@ -29,7 +29,9 @@ runs:
       id: gradle
       run: |-
         ./gradlew build
+        ls build/libs/
         echo VARIABLES="build.gradle settings.gradle include build/libs/ (?<=version\s=\s(\"|'))([0-9.]+(-SNAPSHOT)?) (?<=include\s(\"|'))([^\"']+)(?:.*-all\.jar|.*\.jar)" >> $GITHUB_OUTPUT
+        ls build/libs/
       shell: bash
     # Obtain the Project version and modules
     - name: Gather Project Info
@@ -56,9 +58,9 @@ runs:
         export BUILD_TOOL="GRADLE"
         bash $GITHUB_ACTION_PATH/release.sh
       shell: bash
-    - name: "send discord message"
-      env:
-        DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
-      with:
-        args: 'New release for: {{ EVENT_PAYLOAD.repository.full_name }}. ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{steps.gatherinfo.outputs.VERSION }}'
+    # - name: "send discord message"
+    #   env:
+    #     DISCORD_WEBHOOK: ${{ env.DISCORD_WEBHOOK }}
+    #   uses: Ilshidur/action-discord@master
+    #   with:
+    #     args: 'New release for: {{ EVENT_PAYLOAD.repository.full_name }}. ${{ github.server_url }}/${{ github.repository }}/releases/tag/${{steps.gatherinfo.outputs.VERSION }}'
