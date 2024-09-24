@@ -27,7 +27,7 @@ else
   subprojects=""
 fi
 
-files="$OUTPUT_DIR$REPOSITORY_NAME-$version.jar"
+files="$OUTPUT_DIR$REPOSITORY_NAME-$version-all.jar"
 if ! [ -f "$files" ]; then
   files=""
 fi
