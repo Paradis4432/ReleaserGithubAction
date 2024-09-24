@@ -29,7 +29,7 @@ runs:
       id: gradle
       run: |-
         ./gradlew build
-        echo VARIABLES="build.gradle settings.gradle include build/libs/ (?<=version\s=\s(\"|'))([0-9.]+(-SNAPSHOT)?) (?<=include\s(\"|'))([^\"']+)" >> $GITHUB_OUTPUT
+        echo VARIABLES="build.gradle settings.gradle include build/libs/.*-all\.jar (?<=version\s=\s(\"|'))([0-9.]+(-SNAPSHOT)?) (?<=include\s(\"|'))([^\"']+)" >> $GITHUB_OUTPUT
       shell: bash
     # Obtain the Project version and modules
     - name: Gather Project Info
